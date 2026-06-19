@@ -1,66 +1,64 @@
 # 📉 Event-Driven-Risk-Engine-Multi-Portfolio-Backtesting-Stress-Testing
 
-This repository features a specialized quantitative framework designed to evaluate portfolio resilience during historical stress events (e.g., pandemic shocks, geopolitical conflicts). The engine automates the validation of risk models through systematic backtesting and visualizes tail risk evolution across regional and sectoral portfolios.
+Este repositorio presenta un marco cuantitativo especializado diseñado para evaluar la resiliencia de carteras durante eventos de estrés histórico (por ejemplo, shocks pandémicos, conflictos geopolíticos). El motor automatiza la validación de modelos de riesgo mediante backtesting sistemático y visualiza la evolución del riesgo de cola (tail risk) en carteras regionales y sectoriales.
 
-🎯 **Objective:** To quantify the impact of tail risk events on diversified portfolios and validate the accuracy of Value at Risk (VaR) and Conditional VaR (CVaR) models.
-
----
-
-## 📖 Extended Overview
-The system analyzes multiple thematic portfolios (Peru, South America, North America, and Global) during specific high-volatility windows. It utilizes a **"look-back" window of 252 trading days** to calibrate risk thresholds and a **40-day "stress-window"** to monitor model breaches (violations), providing a rigorous statistical audit of downside risk protection.
-
-### 🎯 Key Objectives of the Analysis
-* **Event-Specific Stress Testing:** Isolation of key historical dates to analyze asset behavior during market dislocations (e.g., March 2020, October 2023).
-* **Dynamic Risk Backtesting:** Implementation of Rolling VaR (95%) to track the frequency and magnitude of violations, identifying potential model underestimation.
-* **Tail Risk Quantification (CVaR):** Evaluation of Expected Shortfall (Conditional VaR) to measure the average loss in the worst 5% of cases, offering a deeper view than standard VaR.
-* **Regional Portfolio Comparison:** Comparative analysis of risk metrics between specialized portfolios, such as the P_Peru (BVN, SCCO) vs. P_Norteamerica (FCX, HL, etc.).
+🎯 **Objetivo:** Cuantificar el impacto de eventos de riesgo de cola en carteras diversificadas y validar la precisión de los modelos de Valor en Riesgo (VaR) y VaR Condicional (CVaR).
 
 ---
 
-## 🔍 Portfolios & Assets Analyzed
-The engine processes a diverse universe of mining and industrial equities across different jurisdictions:
+## 📖 Resumen Extendido
+El sistema analiza múltiples carteras temáticas (Perú, Sudamérica, Norteamérica y Global) durante ventanas específicas de alta volatilidad. Utiliza una **"ventana de retrospectiva" (look-back) de 252 días hábiles** para calibrar los umbrales de riesgo y una **"ventana de estrés" de 40 días** para monitorear las brechas del modelo (violaciones), proporcionando una auditoría estadística rigurosa de la protección contra riesgos a la baja.
 
-* **🇵🇪 Peru:** BVN (Buenaventura), SCCO (Southern Copper).
-* **🌎 Sudamerica:** FM.TO, HBM, SCCO, GMEXICOB.MX.
-* **🇺🇸 Norteamerica:** FCX (Freeport-McMoRan), HL (Hecla Mining), HBM, FM.TO.
+### 🎯 Objetivos clave del análisis
+* **Pruebas de Estrés Específicas por Evento:** Aislamiento de fechas históricas clave para analizar el comportamiento de los activos durante dislocaciones del mercado (p. ej., marzo de 2020, octubre de 2023).
+* **Backtesting de Riesgo Dinámico:** Implementación de VaR Móvil (95%) para rastrear la frecuencia y magnitud de las violaciones, identificando una posible subestimación del modelo.
+* **Cuantificación del Riesgo de Cola (CVaR):** Evaluación del Déficit Esperado (VaR Condicional) para medir la pérdida promedio en el 5% de los peores casos, ofreciendo una visión más profunda que el VaR estándar.
+* **Comparación de Carteras Regionales:** Análisis comparativo de métricas de riesgo entre carteras especializadas, como P_Peru (BVN, SCCO) frente a P_Norteamerica (FCX, HL, etc.).
+
+---
+
+## 🔍 Carteras y Activos Analizados
+El motor procesa un universo diverso de acciones mineras e industriales en diferentes jurisdicciones:
+
+* **🇵🇪 Perú:** BVN (Buenaventura), SCCO (Southern Copper).
+* **🌎 Sudamérica:** FM.TO, HBM, SCCO, GMEXICOB.MX.
+* **🇺🇸 Norteamérica:** FCX (Freeport-McMoRan), HL (Hecla Mining), HBM, FM.TO.
 * **🌐 Grupal:** BHP, GLEN.L, FCX, FM.TO, RIO.
 
 ---
 
-## 📊 Key Portfolio & Risk Results
-* **Tail Risk Sensitivity:** Identification of heightened CVaR levels during specific "Event Windows," allowing for the ranking of portfolios by their defensive capabilities.
-* **Model Integrity:** Through the Backtesting Graph, the system identifies clusters of VaR violations, signaling periods where market volatility exceeded statistical expectations (e.g., early 2020 shocks).
-* **Diversification Benefit:** Analysis of the "P_Grupal" vs. regional portfolios to quantify the reduction in idiosyncratic risk through global asset allocation.
-
-
+## 📊 Resultados Clave de la Cartera y Riesgo
+* **Sensibilidad al Riesgo de Cola:** Identificación de niveles elevados de CVaR durante "Ventanas de Eventos" específicas, permitiendo clasificar las carteras por sus capacidades defensivas.
+* **Integridad del Modelo:** A través del gráfico de Backtesting, el sistema identifica grupos de violaciones de VaR, señalando períodos donde la volatilidad del mercado excedió las expectativas estadísticas (p. ej., shocks a principios de 2020).
+* **Beneficio de la Diversificación:** Análisis de la "P_Grupal" frente a carteras regionales para cuantificar la reducción del riesgo idiosincrásico a través de la asignación global de activos.
 
 ---
 
-## 🛠️ Code Structure & Pipeline
+## 🛠️ Estructura y Lógica del Código
 
-### 1. Data Processing Layer
-* Automated retrieval of global tickers via **yfinance** with adaptive date handling for different international exchanges.
+### 1. Capa de Procesamiento de Datos
+* Recuperación automatizada de tickers globales a través de **yfinance** con manejo de fechas adaptable para diferentes bolsas internacionales.
 
-### 2. Risk Calculation Engine
-* **Rolling Quantile:** `rolling().quantile(0.05)` for dynamic VaR estimation.
-* **Conditional VaR:** Calculated as the mean of returns exceeding the VaR threshold.
+### 2. Motor de Cálculo de Riesgo
+* **Cuantil Móvil:** `rolling().quantile(0.05)` para la estimación dinámica del VaR.
+* **VaR Condicional:** Calculado como la media de los rendimientos que exceden el umbral del VaR.
 
-### 3. Backtesting Module
-* Identification of **"Violations"** where actual returns fall below the predicted VaR, marked with specialized markers in the visual reports.
+### 3. Módulo de Backtesting
+* Identificación de **"Violaciones"** donde los rendimientos reales caen por debajo del VaR previsto, marcados con indicadores especializados en los informes visuales.
 
-### 4. Visualization Suite
-* **CVaR Overlap:** Synchronized plotting of multiple portfolios during the same event window for direct comparison.
-* **Backtesting Scatter:** High-contrast visualization of outliers and model failures.
-
----
-
-## 🚀 Technologies & Concepts Used
-* **Quantitative Risk Management:** VaR Backtesting, Conditional VaR (Expected Shortfall).
-* **Stress Testing:** Event-Driven Analysis, Historical Simulation.
-* **Python Stack:** Pandas (Time-series manipulation), NumPy (Statistical vectorization), Matplotlib (Advanced risk plotting).
-* **Asset Classes:** Global Mining Equities, Base & Precious Metals (Copper, Gold, Silver).
+### 4. Suite de Visualización
+* **Superposición de CVaR:** Gráficos sincronizados de múltiples carteras durante la misma ventana de evento para comparación directa.
+* **Gráfico de Dispersión de Backtesting:** Visualización de alto contraste de valores atípicos y fallas del modelo.
 
 ---
 
-## 📧 Contact & Networking
-📩 **Open to connecting and exploring new opportunities.** 📧 **carloscaballeromc@gmail.com**
+## 🚀 Tecnologías y Conceptos Utilizados
+* **Gestión de Riesgos Cuantitativos:** Backtesting de VaR, VaR Condicional (Déficit Esperado).
+* **Pruebas de Estrés:** Análisis basado en eventos, Simulación Histórica.
+* **Stack de Python:** Pandas (manipulación de series temporales), NumPy (vectorización estadística), Matplotlib (gráficos de riesgo avanzados).
+* **Clases de Activos:** Acciones Mineras Globales, Metales Base y Preciosos (Cobre, Oro, Plata).
+
+---
+
+## 📧 Contacto y Networking
+📩 **Abierto a conectar y explorar nuevas oportunidades.** 📩 **carloscaballeromc@gmail.com**
